@@ -63,7 +63,8 @@ func main() {
 	if err != nil {
 		log.Printf("Could not start opentelemetry: %s", err)
 	}
-	db, err := database.NewDatabase()
+	//db, err := database.NewDatabase()
+	db, err := database.GetDatabaseConnection()
 	if err != nil {
 		log.Fatalf("Could not connect to database: %s", err)
 	}

@@ -145,7 +145,8 @@ func main() {
 	if err != nil {
 		logger.Printf("Could not start tracing: %s\n", err.Error())
 	}
-	db, err := database.NewDatabase()
+	//db, err := database.NewDatabase()
+	db, err := database.GetDatabaseConnection()
 	if err != nil {
 		logger.Fatalf("Could not connect to the database: %s\n", err)
 	}
