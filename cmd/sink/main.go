@@ -157,7 +157,15 @@ func main() {
 	if err != nil {
 		logger.Fatalf("Could not connect to the database: %s\n", err)
 	}
+	defer func(db *database.Database) {
+		err := db.CloseDB()
+		if err != nil {
+			logger.Printf("Could not close the database connection, due to %s", err)
+		}
+	}(db)
+
 	filters, err := filters.NewFilters()
+
 	if err != nil {
 		logger.Printf(
 			"Not all filters could be created from the ConfigMap. Some archive and delete operations will not execute until the errors are resolved: %s\n",

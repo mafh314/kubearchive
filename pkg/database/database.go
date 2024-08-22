@@ -154,3 +154,7 @@ func (db *Database) WriteResource(ctx context.Context, k8sObj *unstructured.Unst
 	}
 	return nil
 }
+
+func (db *Database) CloseDB() error {
+	return db.db.Close()
+}

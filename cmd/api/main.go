@@ -95,6 +95,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Could not connect to database: %s", err)
 	}
+	defer func(db *database.Database) {
+		err := db.CloseDB()
+		if err != nil {
+			log.Printf("Could not close the database connection, due to %s", err)
+		}
+	}(db)
+
 	controller := routers.Controller{Database: db}
 
 	server := NewServer(getKubernetesClient(), controller, cache, cacheExpirations)
